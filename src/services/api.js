@@ -31,6 +31,10 @@ export default {
     return apiClient.get('/products')
   },
 
+  //createProduct
+  createProduct(data) {
+    return apiClient.post('/products', data)
+  },
   //deleteproducts
   destroyproduct(id) {
     return apiClient.delete(`/destroy-product/${id}`)
