@@ -25,6 +25,9 @@
           <li class="nav-item">
             <router-link class="nav-link" to="/products">Data Product</router-link>
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/order">Data Order</router-link>
+          </li>
         </ul>
       </div>
     </div>

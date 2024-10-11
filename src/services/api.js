@@ -41,5 +41,10 @@ export default {
   },
   updateProduct(id, data) {
     return apiClient.put(`/put-products/${id}`, data) // PUT request to update product
+  },
+
+  //order
+  getOrder() {
+    return apiClient.get('/get-order')
   }
 }
