@@ -46,5 +46,8 @@ export default {
   //order
   getOrder() {
     return apiClient.get('/get-order')
+  },
+  tambahOrder() {
+    return apiClient.post('/get-order')
   }
 }
