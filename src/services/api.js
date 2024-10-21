@@ -47,7 +47,7 @@ export default {
   getOrder() {
     return apiClient.get('/get-order')
   },
-  tambahOrder() {
-    return apiClient.post('/get-order')
+  createOrder(data) {
+    return apiClient.post('/get-order', data)
   }
 }
