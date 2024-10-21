@@ -145,6 +145,7 @@ export default {
   mounted() {
     this.fetchOrder() // Memanggil API untuk mendapatkan daftar orders
     this.fetchProducts() // Memanggil API untuk mendapatkan daftar produk
+    this.startPolling()
   },
   methods: {
     async fetchOrder() {
@@ -160,7 +161,7 @@ export default {
       try {
         const response = await api.getProducts() // Memanggil API untuk mendapatkan produk
         console.log(response.data) // Tambahkan log untuk melihat hasil response
-        this.products = response.data.data // Menyimpan produk
+        this.products = response.data // Menyimpan produk
       } catch (error) {
         console.error('Error fetching products:', error)
       }
@@ -225,6 +226,18 @@ export default {
         }
       } catch (error) {
         console.error('Error creating order:', error)
+      }
+    },
+    //start polling tapi nanti di ganti dengan web socket
+    startPolling() {
+      this.pollingInterval = setInterval(() => {
+        this.fetchOrder()
+      }, 5000) // poll setiap 5 detik
+    },
+    //clear pollingnya
+    stopPolling() {
+      if (this.pollingInterval) {
+        clearInterval(this.pollingInterval)
       }
     }
   }
