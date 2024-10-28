@@ -14,7 +14,7 @@
             :key="category.id"
             class="list-group-item list-group-item-action mb-3 shadow-sm"
           >
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="rd-flex justify-content-between align-items-cente">
               <h5 class="mb-1">
                 <strong>{{ category.namecategory }}</strong>
               </h5>
