@@ -9,6 +9,15 @@ const apiClient = axios.create({
   }
 })
 
+// Interceptor untuk menambahkan token ke setiap request jika ada
+apiClient.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})
+
 export default {
   getCategories() {
     return apiClient.get('/categories')
