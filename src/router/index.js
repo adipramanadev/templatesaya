@@ -5,6 +5,7 @@ import Categories from '@/components/Categories.vue'
 import Login from '@/components/Login.vue'
 import Products from '@/components/Products.vue'
 import apiClient from '@/services/api'
+import App from '@/App.vue'
 
 const routes = [
   {
@@ -22,21 +23,26 @@ const routes = [
     name: 'Login',
     component: Login
   },
-
   {
-    path: '/categories',
-    name: 'Categories',
-    component: Categories
-  },
-  {
-    path: '/products',
-    name: 'Products',
-    component: Products
-  },
-  {
-    path: '/home',
-    name: 'Home',
-    component: Home
+    path: '/',
+    component: App,
+    children: [
+      {
+        path: '/categories',
+        name: 'Categories',
+        component: Categories
+      },
+      {
+        path: '/products',
+        name: 'Products',
+        component: Products
+      },
+      {
+        path: '/home',
+        name: 'Home',
+        component: Home
+      }
+    ]
   },
   {
     path: '/logout',
