@@ -6,6 +6,7 @@ export const authState = reactive({
 
 export function logout() {
   localStorage.removeItem('token')
+  authState.isAuthenticated = false
 }
 
 export function login(token) {

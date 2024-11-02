@@ -1,15 +1,21 @@
 <template>
   <div id="app">
-    <Navbar />
+    <Navbar v-if="authState.isAuthenticated" />
     <router-view />
   </div>
 </template>
 
 <script>
+import { authState } from './auth'
 import Navbar from './components/Navbar.vue'
 
 export default {
   name: 'App',
+  computed: {
+    authState() {
+      return authState
+    }
+  },
   components: {
     Navbar
   }
