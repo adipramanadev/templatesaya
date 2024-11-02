@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" v-if="authState.isAuthenticated">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Your App Name</a>
       <button
@@ -18,7 +18,6 @@
           <li class="nav-item">
             <router-link class="nav-link active" to="/home">Home</router-link>
           </li>
-          <!-- Add Category Link -->
           <li class="nav-item">
             <router-link class="nav-link" to="/categories">Categories</router-link>
           </li>
@@ -28,8 +27,9 @@
           <li class="nav-item">
             <router-link class="nav-link" to="/order">Data Order</router-link>
           </li>
-          <li>
-            <router-link class="nav-link" to="/logout">Logout</router-link>
+          <!-- Use a button for logout instead of router-link -->
+          <li class="nav-item">
+            <button @click="handleLogout" class="nav-link btn btn-link">Logout</button>
           </li>
         </ul>
       </div>
@@ -38,18 +38,28 @@
 </template>
 
 <script>
+import { authState, logout } from '@/auth.js'
 import apiClient from '@/services/api'
+
 export default {
   name: 'AppNavbar',
+  computed: {
+    authState() {
+      return authState
+    }
+  },
   methods: {
     handleLogout() {
       apiClient
         .logout()
         .then(() => {
-          this.$router.push({ name: 'Home' }) // Redirect to home or login page after logout
+          logout() // Update auth state
+          this.$router.push({ name: 'Login' }) // Redirect to the login page
         })
         .catch((error) => {
           console.error('Logout failed', error)
+          logout()
+          this.$router.push({ name: 'Login' })
         })
     }
   }
@@ -70,11 +80,13 @@ ul {
 li {
   font-size: 18px;
 }
-a {
+a,
+.btn-link {
   color: black;
   text-decoration: none;
 }
-a:hover {
+a:hover,
+.btn-link:hover {
   text-decoration: none;
 }
 </style>
