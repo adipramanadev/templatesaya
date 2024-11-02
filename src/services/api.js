@@ -19,6 +19,13 @@ apiClient.interceptors.request.use((config) => {
 })
 
 export default {
+  login(credentials) {
+    return apiClient.post('/login', credentials)
+  },
+  logout() {
+    localStorage.removeItem('token')
+    return apiClient.post('/logout') // Assuming the backend has a logout route
+  },
   getCategories() {
     return apiClient.get('/categories')
   },
