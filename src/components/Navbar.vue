@@ -28,6 +28,9 @@
           <li class="nav-item">
             <router-link class="nav-link" to="/order">Data Order</router-link>
           </li>
+          <li>
+            <router-link class="nav-link" to="/logout">Logout</router-link>
+          </li>
         </ul>
       </div>
     </div>
@@ -35,8 +38,21 @@
 </template>
 
 <script>
+import apiClient from '@/services/api'
 export default {
-  name: 'AppNavbar'
+  name: 'AppNavbar',
+  methods: {
+    handleLogout() {
+      apiClient
+        .logout()
+        .then(() => {
+          this.$router.push({ name: 'Home' }) // Redirect to home or login page after logout
+        })
+        .catch((error) => {
+          console.error('Logout failed', error)
+        })
+    }
+  }
 }
 </script>
 

@@ -55,17 +55,20 @@ export default {
   methods: {
     async login() {
       try {
-        this.error = null
-        const response = await apiClient.post('/login', {
+        const response = await apiClient.login({
           email: this.email,
           password: this.password
         })
-
+        console.log('Response dari server:', response) // Debug respons server
         localStorage.setItem('token', response.data.token)
-
-        this.$router.push('/home')
+        this.$router.push('/navbar')
       } catch (error) {
-        this.error = 'Invalid email or password'
+        console.error('Error saat login:', error)
+        if (error.response) {
+          console.error('Error status:', error.response.status)
+          console.error('Error data:', error.response.data)
+        }
+        this.errorMessage = error.response?.data?.message || 'Gagal login'
       }
     }
   }

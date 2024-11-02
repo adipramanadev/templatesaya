@@ -1,12 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import Login from '@/components/Login.vue'
+import Navbar from '@/components/Navbar.vue'
 import Categories from '@/components/Categories.vue'
+import Login from '@/components/Login.vue'
 import Products from '@/components/Products.vue'
+import apiClient from '@/services/api'
 
 const routes = [
   {
+    path: '/navbar',
+    name: 'Navbar',
+    component: Navbar
+  },
+  {
     path: '/',
+
     redirect: '/login' // Mengarahkan halaman default ke login
   },
   {
@@ -14,6 +22,7 @@ const routes = [
     name: 'Login',
     component: Login
   },
+
   {
     path: '/categories',
     name: 'Categories',
@@ -28,6 +37,14 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/logout',
+    name: 'Logout',
+    beforeEnter: (_to, _from, next) => {
+      apiClient.logout()
+      next({ name: 'Login' })
+    }
   }
 ]
 
@@ -38,7 +55,7 @@ const router = createRouter({
 })
 
 // Gunakan router setelah deklarasi dan inisialisasi selesai
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   const token = localStorage.getItem('token')
   if (to.path !== '/login' && !token) {
     next('/login')
