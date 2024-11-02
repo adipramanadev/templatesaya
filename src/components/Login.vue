@@ -61,7 +61,7 @@ export default {
         })
         console.log('Response dari server:', response) // Debug respons server
         localStorage.setItem('token', response.data.token)
-        this.$router.push('/navbar')
+        this.$router.push('/home')
       } catch (error) {
         console.error('Error saat login:', error)
         if (error.response) {
